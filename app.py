@@ -26,9 +26,10 @@ st.title("Vehicle Price Prediction")
 st.subheader("Enter the vehicle details")
 
 year = st.number_input("Year of Manufacture", min_value=1900, max_value=2025, value=2020)
-mileage = st.number_input("Mileage (in miles)", min_value=0, value=20.0)
+mileage = st.number_input("Mileage (in miles)", min_value=0.0, value=20.0)
 model_input = st.text_input("Model", "Wagoneer")
 fuel_input = st.selectbox("Fuel Type", ["Gasoline", "Diesel", "Electric", "Hybrid"])
+
 
 # Preparing the input data for prediction
 input_data = pd.DataFrame({
