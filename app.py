@@ -4,20 +4,33 @@ import pickle
 from sklearn.preprocessing import OneHotEncoder
 import numpy as np
 
-# Load the pre-trained model and encoder
+# Load the pre-trained model
 model_file = 'decision_tree_model.pkl'
 
 # Load the saved model
 with open(model_file, 'rb') as file:
     model = pickle.load(file)
 
-# Load the encoder used for categorical data transformation
+# Load or fit the encoder on the training data (use the same encoder that was used to train the model)
+# Assuming that the encoder was previously fitted on training data columns like 'model' and 'fuel'
 encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
 
-# Placeholder for one-hot encoder fitting
-def fit_encoder(data):
-    encoder.fit(data)
-    return encoder
+# Fitting the encoder with training data (can be based on the data used for training the model)
+# In this case, we assume that you are loading the encoder from a saved file (if available) or fitting it on the training set.
+# Replace with your saved encoder loading process if you have one.
+
+# In your case, it would be better to train the encoder first on the same data used to train the model.
+
+# Sample training data (make sure to use the same training data you used before for fitting the encoder)
+training_data = pd.DataFrame({
+    'model': ['Wagoneer', 'Durango'],
+    'fuel': ['Gasoline', 'Diesel'],
+    'year': [2020, 2021],
+    'mileage': [20.0, 15.0]
+})
+
+# Fit the encoder on your training data
+encoder.fit(training_data[['model', 'fuel']])
 
 # Streamlit title
 st.title("Vehicle Price Prediction")
@@ -29,7 +42,6 @@ year = st.number_input("Year of Manufacture", min_value=1900, max_value=2025, va
 mileage = st.number_input("Mileage (in miles)", min_value=0.0, value=20.0)
 model_input = st.text_input("Model", "Wagoneer")
 fuel_input = st.selectbox("Fuel Type", ["Gasoline", "Diesel", "Electric", "Hybrid"])
-
 
 # Preparing the input data for prediction
 input_data = pd.DataFrame({
